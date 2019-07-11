@@ -1,5 +1,6 @@
 import { observer } from 'mobx-react';
 import * as React from 'react';
+import LazyLoad from 'react-lazyload';
 
 import { ExternalDocumentation } from '../ExternalDocumentation/ExternalDocumentation';
 import { AdvancedMarkdown } from '../Markdown/AdvancedMarkdown';
@@ -18,7 +19,11 @@ export class ContentItems extends React.Component<{
     if (items.length === 0) {
       return null;
     }
-    return items.map(item => <ContentItem item={item} key={item.id} />);
+    return items.map(item => (
+      <LazyLoad key={item.id} once>
+        <ContentItem item={item} />
+      </LazyLoad>
+    ));
   }
 }
 
